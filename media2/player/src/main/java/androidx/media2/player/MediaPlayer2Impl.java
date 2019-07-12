@@ -34,6 +34,7 @@ import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseArray;
 import android.view.Surface;
 
 import androidx.annotation.GuardedBy;
@@ -143,6 +144,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                 TrackInfo.MEDIA_TRACK_TYPE_METADATA);
     }
 
+    @SuppressWarnings("WeakerAccess") /* synthetic access */
+    AtomicInteger mNextTrackId = new AtomicInteger();
     MediaPlayerSourceQueue mPlayer;
 
     private HandlerThread mHandlerThread;
@@ -620,43 +623,35 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
     }
 
     @Override
+    @NonNull
     public List<TrackInfo> getTrackInfo() {
-        MediaPlayer.TrackInfo[] list = mPlayer.getTrackInfo();
-        List<TrackInfo> trackList = new ArrayList<>();
-        for (MediaPlayer.TrackInfo info : list) {
-            int trackType = sTrackTypeMap.get(info.getTrackType());
-            MediaFormat format = info.getFormat();
-            if (format != null && TextUtils.equals(
-                    format.getString(MediaFormat.KEY_MIME), MediaFormat.MIMETYPE_TEXT_VTT)) {
-                // Hide WebVTT track. For background, see b/120081663.
-                trackType = TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN;
-            }
-            trackList.add(new TrackInfoImpl(trackType, format));
-        }
-        return trackList;
+        return mPlayer.getTrackInfo();
     }
 
     @Override
-    public int getSelectedTrack(int trackType) {
+    @Nullable
+    public TrackInfo getSelectedTrack(int trackType) {
         return mPlayer.getSelectedTrack(trackType);
     }
 
     @Override
-    public Object selectTrack(final int index) {
+    @NonNull
+    public Object selectTrack(final int trackId) {
         return addTask(new Task(CALL_COMPLETED_SELECT_TRACK, false) {
             @Override
             void process() {
-                mPlayer.selectTrack(index);
+                mPlayer.selectTrack(trackId);
             }
         });
     }
 
     @Override
-    public Object deselectTrack(final int index) {
+    @NonNull
+    public Object deselectTrack(final int trackId) {
         return addTask(new Task(CALL_COMPLETED_DESELECT_TRACK, false) {
             @Override
             void process() {
-                mPlayer.deselectTrack(index);
+                mPlayer.deselectTrack(trackId);
             }
         });
     }
@@ -987,6 +982,9 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                         mPlayer.setBufferingState(
                                 mp, SessionPlayer.BUFFERING_STATE_BUFFERING_AND_PLAYABLE);
                         break;
+                    case MediaPlayer.MEDIA_INFO_METADATA_UPDATE:
+                        src.populateTrackInfo();
+                        break;
                 }
                 notifyMediaPlayer2Event(new Mp2EventNotifier() {
                     @Override
@@ -1112,7 +1110,8 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
                         final long durationUs = data.getDurationUs();
                         final byte[] bytes = data.getData();
                         SubtitleData sub = new SubtitleData(startTimeUs, durationUs, bytes);
-                        cb.onSubtitleData(MediaPlayer2Impl.this, src.getDSD(), idx, sub);
+                        cb.onSubtitleData(MediaPlayer2Impl.this, src.getDSD(),
+                                src.getTrackInfo(idx), sub);
                     }
                 });
             }
@@ -1379,7 +1378,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
         @PlayerState int mPlayerState = SessionPlayer.PLAYER_STATE_IDLE;
         boolean mPlayPending;
         boolean mSetAsNextPlayer;
-        final Map<Integer, Integer> mSelectedTracks = new ArrayMap<>();
+        @NonNull SparseArray<TrackInfo> mTracks = new SparseArray<>();
 
         MediaPlayerSource(final MediaItem item) {
             mDSD = item;
@@ -1408,30 +1407,90 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             }
         }
 
-        void selectTrack(int index) {
+        void selectTrack(int trackId) {
             final MediaPlayer mp = getPlayer();
-            mp.selectTrack(index);
-            MediaPlayer.TrackInfo[] trackInfos = mp.getTrackInfo();
-            if (index >= 0 && index < trackInfos.length) {
-                mSelectedTracks.put(trackInfos[index].getTrackType(), index);
+            TrackInfo track = mTracks.get(trackId);
+            if (track == null) {
+                throw new IllegalArgumentException("unknown track id");
             }
+            int trackType = track.getTrackType();
+            if (!(trackType == TrackInfo.MEDIA_TRACK_TYPE_AUDIO
+                    || trackType == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE)) {
+                throw new IllegalArgumentException("unsupported track type for selection");
+            }
+            mp.selectTrack(mTracks.indexOfKey(trackId));
         }
 
-        void deselectTrack(int index) {
+        void deselectTrack(int trackId) {
             final MediaPlayer mp = getPlayer();
-            mp.deselectTrack(index);
-            MediaPlayer.TrackInfo[] trackInfos = mp.getTrackInfo();
-            if (index >= 0 && index < trackInfos.length) {
-                int trackType = trackInfos[index].getTrackType();
-                if (trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE
-                        || trackType == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_TIMEDTEXT) {
-                    mSelectedTracks.remove(trackType);
+            TrackInfo track = mTracks.get(trackId);
+            if (track == null) {
+                throw new IllegalArgumentException("unknown track id");
+            }
+            int trackType = track.getTrackType();
+            if (trackType != TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
+                throw new IllegalArgumentException("unsupported track type for deselection");
+            }
+            mp.deselectTrack(mTracks.indexOfKey(trackId));
+        }
+
+        @NonNull
+        List<TrackInfo> getTrackInfo() {
+            List<TrackInfo> tracks = new ArrayList<>();
+            for (int i = 0; i < mTracks.size(); i++) {
+                tracks.add(mTracks.valueAt(i));
+            }
+            return tracks;
+        }
+
+        @NonNull
+        TrackInfo getTrackInfo(int index) {
+            if (index < 0 || index >= mTracks.size()) {
+                throw new IllegalArgumentException("index out of range");
+            }
+            return mTracks.valueAt(index);
+        }
+
+        @Nullable
+        TrackInfo getSelectedTrack(int trackType) {
+            int fwkTrackType;
+            if (trackType == TrackInfo.MEDIA_TRACK_TYPE_VIDEO) {
+                fwkTrackType = MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO;
+            } else if (trackType == TrackInfo.MEDIA_TRACK_TYPE_AUDIO) {
+                fwkTrackType = MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO;
+            } else if (trackType == TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE) {
+                fwkTrackType = MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE;
+            } else {
+                return null;
+            }
+
+            MediaPlayer mp = getPlayer();
+            int index = mp.getSelectedTrack(fwkTrackType);
+            if (index < 0 || index >= mTracks.size()) {
+                return null;
+            }
+            return mTracks.valueAt(index);
+        }
+
+        void populateTrackInfo() {
+            final MediaPlayer mp = getPlayer();
+            MediaPlayer.TrackInfo[] fwkTracks = mp.getTrackInfo();
+            SparseArray<TrackInfo> tracks = new SparseArray<>();
+            for (MediaPlayer.TrackInfo fwkTrack : fwkTracks) {
+                Integer trackTypeObj = sTrackTypeMap.get(fwkTrack.getTrackType());
+                int trackType = trackTypeObj == null ? TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN
+                        : trackTypeObj;
+                MediaFormat format = fwkTrack.getFormat();
+                if (format != null && TextUtils.equals(
+                        format.getString(MediaFormat.KEY_MIME), MediaFormat.MIMETYPE_TEXT_VTT)) {
+                    // Hide WebVTT track. For background, see b/120081663.
+                    trackType = TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN;
                 }
+                TrackInfo track = new TrackInfoImpl(mNextTrackId.getAndIncrement(), trackType,
+                        format);
+                tracks.put(track.getId(), track);
             }
-        }
-
-        int getSelectedTrack(int trackType) {
-            return mSelectedTracks.getOrDefault(trackType, -1);
+            mTracks = tracks;
         }
     }
 
@@ -1601,16 +1660,7 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             for (int i = 0; i < mQueue.size(); i++) {
                 MediaPlayerSource src = mQueue.get(i);
                 if (mp == src.getPlayer()) {
-                    // The first video/audio tracks are selected tracks.
-                    MediaPlayer.TrackInfo[] tracks = mp.getTrackInfo();
-                    for (int j = 0; j < tracks.length; j++) {
-                        if ((tracks[j].getTrackType()
-                                == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_VIDEO)
-                                || (tracks[j].getTrackType()
-                                == MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO)) {
-                            src.mSelectedTracks.putIfAbsent(tracks[j].getTrackType(), j);
-                        }
-                    }
+                    src.populateTrackInfo();
 
                     if (i == 0) {
                         if (src.mPlayPending) {
@@ -1940,23 +1990,26 @@ public final class MediaPlayer2Impl extends MediaPlayer2 {
             mAuxEffectSendLevel = Float.valueOf(level);
         }
 
-        synchronized MediaPlayer.TrackInfo[] getTrackInfo() {
-            return getCurrentPlayer().getTrackInfo();
+        @NonNull
+        synchronized List<TrackInfo> getTrackInfo() {
+            final MediaPlayerSource currentPlayerSource = mQueue.get(0);
+            return currentPlayerSource.getTrackInfo();
         }
 
-        synchronized int getSelectedTrack(int trackType) {
+        @Nullable
+        synchronized TrackInfo getSelectedTrack(int trackType) {
             final MediaPlayerSource currentPlayerSource = mQueue.get(0);
             return currentPlayerSource.getSelectedTrack(trackType);
         }
 
-        synchronized void selectTrack(int index) {
+        synchronized void selectTrack(int trackId) {
             final MediaPlayerSource currentPlayerSource = mQueue.get(0);
-            currentPlayerSource.selectTrack(index);
+            currentPlayerSource.selectTrack(trackId);
         }
 
-        synchronized void deselectTrack(int index) {
+        synchronized void deselectTrack(int trackId) {
             final MediaPlayerSource currentPlayerSource = mQueue.get(0);
-            currentPlayerSource.deselectTrack(index);
+            currentPlayerSource.deselectTrack(trackId);
         }
 
         synchronized MediaPlayer.DrmInfo getDrmInfo() {

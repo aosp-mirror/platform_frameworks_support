@@ -33,6 +33,7 @@ import static androidx.media2.player.exoplayer.TrackSelector.InternalTextTrackIn
 
 import android.annotation.SuppressLint;
 import android.media.MediaFormat;
+import android.util.SparseArray;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -64,34 +65,29 @@ import java.util.List;
 
     private static final int TRACK_INDEX_UNSET = -1;
 
+    private int mNextTrackId;
     private final TextRenderer mTextRenderer;
     private final DefaultTrackSelector mDefaultTrackSelector;
-    private final List<MediaPlayer2.TrackInfo> mAudioTrackInfos;
-    private final List<MediaPlayer2.TrackInfo> mVideoTrackInfos;
-    private final List<MediaPlayer2.TrackInfo> mMetadataTrackInfos;
-    private final List<MediaPlayer2.TrackInfo> mTextTrackInfos;
-    private final List<InternalTextTrackInfo> mInternalTextTrackInfos;
+    private final SparseArray<InternalTrackInfo> mTracks;
+    private final List<InternalTextTrackInfo> mTextTracks;
 
     private boolean mPendingMetadataUpdate;
-    private int mSelectedAudioTrackIndex;
-    private int mSelectedVideoTrackIndex;
-    private int mSelectedMetadataTrackIndex;
+    private InternalTrackInfo mSelectedAudioTrack;
+    private InternalTrackInfo mSelectedVideoTrack;
+    private InternalTrackInfo mSelectedMetadataTrack;
+    private InternalTextTrackInfo mSelectedTextTrack;
     private int mPlayerTextTrackIndex;
-    private int mSelectedTextTrackIndex;
 
     TrackSelector(TextRenderer textRenderer) {
         mTextRenderer = textRenderer;
         mDefaultTrackSelector = new DefaultTrackSelector();
-        mAudioTrackInfos = new ArrayList<>();
-        mVideoTrackInfos = new ArrayList<>();
-        mMetadataTrackInfos = new ArrayList<>();
-        mTextTrackInfos = new ArrayList<>();
-        mInternalTextTrackInfos = new ArrayList<>();
-        mSelectedAudioTrackIndex = TRACK_INDEX_UNSET;
-        mSelectedVideoTrackIndex = TRACK_INDEX_UNSET;
-        mSelectedMetadataTrackIndex = TRACK_INDEX_UNSET;
+        mTracks = new SparseArray<>();
+        mTextTracks = new ArrayList<>();
+        mSelectedAudioTrack = null;
+        mSelectedVideoTrack = null;
+        mSelectedMetadataTrack = null;
+        mSelectedTextTrack = null;
         mPlayerTextTrackIndex = TRACK_INDEX_UNSET;
-        mSelectedTextTrackIndex = TRACK_INDEX_UNSET;
         // Ensure undetermined text tracks are selected so that CEA-608/708 streams are sent to the
         // text renderer. By default, metadata tracks are not selected.
         mDefaultTrackSelector.setParameters(
@@ -110,15 +106,13 @@ import java.util.List;
         // Clear all selection state.
         mDefaultTrackSelector.setParameters(
                 mDefaultTrackSelector.buildUponParameters().clearSelectionOverrides());
-        mSelectedAudioTrackIndex = TRACK_INDEX_UNSET;
-        mSelectedVideoTrackIndex = TRACK_INDEX_UNSET;
-        mSelectedMetadataTrackIndex = TRACK_INDEX_UNSET;
+        mSelectedAudioTrack = null;
+        mSelectedVideoTrack = null;
+        mSelectedMetadataTrack = null;
+        mSelectedTextTrack = null;
         mPlayerTextTrackIndex = TRACK_INDEX_UNSET;
-        mSelectedTextTrackIndex = TRACK_INDEX_UNSET;
-        mAudioTrackInfos.clear();
-        mVideoTrackInfos.clear();
-        mMetadataTrackInfos.clear();
-        mInternalTextTrackInfos.clear();
+        mTracks.clear();
+        mTextTracks.clear();
         mTextRenderer.clearSelection();
         MappingTrackSelector.MappedTrackInfo mappedTrackInfo =
                 mDefaultTrackSelector.getCurrentMappedTrackInfo();
@@ -126,43 +120,62 @@ import java.util.List;
             return;
         }
 
+        // Get track selections to determine selected track.
+        TrackSelectionArray trackSelections = player.getCurrentTrackSelections();
+        TrackSelection audioTrackSelection = trackSelections.get(AUDIO_RENDERER_INDEX);
+        TrackGroup selectedAudioTrackGroup = audioTrackSelection == null ? null
+                : audioTrackSelection.getTrackGroup();
+        TrackSelection videoTrackSelection = trackSelections.get(VIDEO_RENDERER_INDEX);
+        TrackGroup selectedVideoTrackGroup = videoTrackSelection == null ? null
+                : videoTrackSelection.getTrackGroup();
+        TrackSelection metadataTrackSelection = trackSelections.get(METADATA_RENDERER_INDEX);
+        TrackGroup selectedMetadataTrackGroup = metadataTrackSelection == null ? null
+                : metadataTrackSelection.getTrackGroup();
+        TrackSelection textTrackSelection = trackSelections.get(TEXT_RENDERER_INDEX);
+        TrackGroup selectedTextTrackGroup = textTrackSelection == null ? null
+                : textTrackSelection.getTrackGroup();
+
         // Enumerate track information.
         TrackGroupArray audioTrackGroups = mappedTrackInfo.getTrackGroups(AUDIO_RENDERER_INDEX);
         for (int i = 0; i < audioTrackGroups.length; i++) {
             TrackGroup trackGroup = audioTrackGroups.get(i);
-            TrackInfoImpl trackInfo = new TrackInfoImpl(
-                    MEDIA_TRACK_TYPE_AUDIO, ExoPlayerUtils.getMediaFormat(trackGroup.getFormat(0)));
-            mAudioTrackInfos.add(trackInfo);
+            InternalTrackInfo track = new InternalTrackInfo(
+                    i,
+                    MEDIA_TRACK_TYPE_AUDIO,
+                    ExoPlayerUtils.getMediaFormat(trackGroup.getFormat(0)),
+                    mNextTrackId++);
+            mTracks.put(track.mExternalTrackInfo.getId(), track);
+            if (trackGroup == selectedAudioTrackGroup) {
+                mSelectedAudioTrack = track;
+            }
         }
         TrackGroupArray videoTrackGroups = mappedTrackInfo.getTrackGroups(VIDEO_RENDERER_INDEX);
         for (int i = 0; i < videoTrackGroups.length; i++) {
             TrackGroup trackGroup = videoTrackGroups.get(i);
-            TrackInfoImpl trackInfo = new TrackInfoImpl(
-                    MEDIA_TRACK_TYPE_VIDEO, ExoPlayerUtils.getMediaFormat(trackGroup.getFormat(0)));
-            mVideoTrackInfos.add(trackInfo);
+            InternalTrackInfo track = new InternalTrackInfo(
+                    i,
+                    MEDIA_TRACK_TYPE_VIDEO,
+                    ExoPlayerUtils.getMediaFormat(trackGroup.getFormat(0)),
+                    mNextTrackId++);
+            mTracks.put(track.mExternalTrackInfo.getId(), track);
+            if (trackGroup == selectedVideoTrackGroup) {
+                mSelectedVideoTrack = track;
+            }
         }
         TrackGroupArray metadataTrackGroups =
                 mappedTrackInfo.getTrackGroups(METADATA_RENDERER_INDEX);
         for (int i = 0; i < metadataTrackGroups.length; i++) {
             TrackGroup trackGroup = metadataTrackGroups.get(i);
-            TrackInfoImpl trackInfo = new TrackInfoImpl(
+            InternalTrackInfo track = new InternalTrackInfo(
+                    i,
                     MEDIA_TRACK_TYPE_METADATA,
-                    ExoPlayerUtils.getMediaFormat(trackGroup.getFormat(0)));
-            mMetadataTrackInfos.add(trackInfo);
+                    ExoPlayerUtils.getMediaFormat(trackGroup.getFormat(0)),
+                    mNextTrackId++);
+            mTracks.put(track.mExternalTrackInfo.getId(), track);
+            if (trackGroup == selectedMetadataTrackGroup) {
+                mSelectedMetadataTrack = track;
+            }
         }
-
-        // Determine selected track indices for audio and video.
-        TrackSelectionArray trackSelections = player.getCurrentTrackSelections();
-        TrackSelection audioTrackSelection = trackSelections.get(AUDIO_RENDERER_INDEX);
-        mSelectedAudioTrackIndex = audioTrackSelection == null
-                ? TRACK_INDEX_UNSET : audioTrackGroups.indexOf(audioTrackSelection.getTrackGroup());
-        TrackSelection videoTrackSelection = trackSelections.get(VIDEO_RENDERER_INDEX);
-        mSelectedVideoTrackIndex = videoTrackSelection == null
-                ? TRACK_INDEX_UNSET : videoTrackGroups.indexOf(videoTrackSelection.getTrackGroup());
-        TrackSelection metadataTrackSelection = trackSelections.get(METADATA_RENDERER_INDEX);
-        mSelectedMetadataTrackIndex = metadataTrackSelection == null
-                ? TRACK_INDEX_UNSET : metadataTrackGroups.indexOf(
-                        metadataTrackSelection.getTrackGroup());
 
         // The text renderer exposes information about text tracks, but we may have preliminary
         // information from the player.
@@ -171,31 +184,34 @@ import java.util.List;
             TrackGroup trackGroup = textTrackGroups.get(i);
             Format format = Preconditions.checkNotNull(trackGroup.getFormat(0));
             int type = getTextTrackType(format.sampleMimeType);
-            InternalTextTrackInfo internalTextTrackInfo =
-                    new InternalTextTrackInfo(i, type, format, UNSET);
-            mInternalTextTrackInfos.add(internalTextTrackInfo);
-            mTextTrackInfos.add(internalTextTrackInfo.mTrackInfo);
+            InternalTextTrackInfo textTrack = new InternalTextTrackInfo(
+                    i, type, format, UNSET, mNextTrackId++);
+            mTextTracks.add(textTrack);
+            mTracks.put(textTrack.mExternalTrackInfo.getId(), textTrack);
+            if (trackGroup == selectedTextTrackGroup) {
+                mPlayerTextTrackIndex = i;
+            }
         }
-        TrackSelection textTrackSelection = trackSelections.get(TEXT_RENDERER_INDEX);
-        mPlayerTextTrackIndex = textTrackSelection == null
-                ? TRACK_INDEX_UNSET : textTrackGroups.indexOf(textTrackSelection.getTrackGroup());
     }
 
     public void handleTextRendererChannelAvailable(int type, int channel) {
         // We may already be advertising a track for this type. If so, associate the existing text
         // track with the channel. Otherwise create a new text track info.
         boolean populatedExistingTrack = false;
-        for (int i = 0; i < mInternalTextTrackInfos.size(); i++) {
-            InternalTextTrackInfo internalTextTrackInfo = mInternalTextTrackInfos.get(i);
-            if (internalTextTrackInfo.mType == type && internalTextTrackInfo.mChannel == UNSET) {
+        for (int i = 0; i < mTextTracks.size(); i++) {
+            InternalTextTrackInfo textTrack = mTextTracks.get(i);
+            if (textTrack.mType == type && textTrack.mChannel == UNSET) {
+                int trackId = textTrack.mExternalTrackInfo.getId();
                 // Associate the existing text track with this channel.
-                InternalTextTrackInfo replacementTextTrackInfo = new InternalTextTrackInfo(
-                        internalTextTrackInfo.mPlayerTrackIndex,
+                InternalTextTrackInfo replacementTextTrack = new InternalTextTrackInfo(
+                        textTrack.mPlayerTrackIndex,
                         type,
-                        internalTextTrackInfo.mFormat,
-                        channel);
-                mInternalTextTrackInfos.set(i, replacementTextTrackInfo);
-                if (mSelectedTextTrackIndex == i) {
+                        textTrack.mFormat,
+                        channel,
+                        trackId);
+                mTextTracks.set(i, replacementTextTrack);
+                mTracks.put(trackId, replacementTextTrack);
+                if (mSelectedTextTrack != null && mSelectedTextTrack.mPlayerTrackIndex == i) {
                     mTextRenderer.select(type, channel);
                 }
                 populatedExistingTrack = true;
@@ -203,10 +219,10 @@ import java.util.List;
             }
         }
         if (!populatedExistingTrack) {
-            InternalTextTrackInfo internalTextTrackInfo = new InternalTextTrackInfo(
-                    mPlayerTextTrackIndex, type, /* format= */ null, channel);
-            mInternalTextTrackInfos.add(internalTextTrackInfo);
-            mTextTrackInfos.add(internalTextTrackInfo.mTrackInfo);
+            InternalTextTrackInfo textTrack = new InternalTextTrackInfo(
+                    mPlayerTextTrackIndex, type, /* format= */ null, channel, mNextTrackId++);
+            mTextTracks.add(textTrack);
+            mTracks.put(textTrack.mExternalTrackInfo.getId(), textTrack);
             mPendingMetadataUpdate = true;
         }
     }
@@ -217,73 +233,71 @@ import java.util.List;
         return pendingMetadataUpdate;
     }
 
-    public int getSelectedTrack(int trackType) {
-        // Note: This logic should be aligned with the order of track types in getTrackInfos().
+    public MediaPlayer2.TrackInfo getSelectedTrack(int trackType) {
         switch (trackType) {
             case MEDIA_TRACK_TYPE_VIDEO:
-                return mSelectedVideoTrackIndex;
+                return mSelectedVideoTrack == null ? null
+                        : mSelectedVideoTrack.mExternalTrackInfo;
             case MEDIA_TRACK_TYPE_AUDIO:
-                if (mSelectedAudioTrackIndex < 0) break;
-                return mVideoTrackInfos.size() + mSelectedAudioTrackIndex;
+                return mSelectedAudioTrack == null ? null
+                        : mSelectedAudioTrack.mExternalTrackInfo;
             case MEDIA_TRACK_TYPE_METADATA:
-                if (mSelectedMetadataTrackIndex < 0) break;
-                return mVideoTrackInfos.size() + mAudioTrackInfos.size()
-                        + mSelectedMetadataTrackIndex;
+                return mSelectedMetadataTrack == null ? null
+                        : mSelectedMetadataTrack.mExternalTrackInfo;
             case MEDIA_TRACK_TYPE_SUBTITLE:
-                if (mSelectedTextTrackIndex < 0) break;
-                return mVideoTrackInfos.size() + mAudioTrackInfos.size()
-                        + mMetadataTrackInfos.size() + mSelectedTextTrackIndex;
+                return mSelectedTextTrack == null ? null
+                        : mSelectedTextTrack.mExternalTrackInfo;
             case MEDIA_TRACK_TYPE_UNKNOWN:
             default:
-                break;
+                return null;
         }
-        return TRACK_INDEX_UNSET;
     }
 
     public List<MediaPlayer2.TrackInfo> getTrackInfos() {
-        // Note: This order should be aligned with getSelectedTrack() logic.
-        ArrayList<MediaPlayer2.TrackInfo> trackInfos = new ArrayList<>(
-                mVideoTrackInfos.size() + mAudioTrackInfos.size() + mMetadataTrackInfos.size()
-                        + mInternalTextTrackInfos.size());
-        trackInfos.addAll(mVideoTrackInfos);
-        trackInfos.addAll(mAudioTrackInfos);
-        trackInfos.addAll(mMetadataTrackInfos);
-        trackInfos.addAll(mTextTrackInfos);
-        // Note: the list returned by MediaPlayer2Impl is modifiable so do the same here.
-        return trackInfos;
+        ArrayList<MediaPlayer2.TrackInfo> externalTracks = new ArrayList<>();
+        for (int i = 0; i < mTracks.size(); i++) {
+            externalTracks.add(mTracks.valueAt(i).mExternalTrackInfo);
+        }
+        return externalTracks;
     }
 
-    public void selectTrack(int index) {
-        Preconditions.checkArgument(
-                index >= mVideoTrackInfos.size(), "Video track selection is not supported");
-        index -= mVideoTrackInfos.size();
-        if (index < mAudioTrackInfos.size()) {
-            mSelectedAudioTrackIndex = index;
+    public void selectTrack(int trackId) {
+        InternalTrackInfo track = mTracks.get(trackId);
+        Preconditions.checkArgument(track != null, "unknown track id");
+
+        int trackType = track.mExternalTrackInfo.getTrackType();
+        Preconditions.checkArgument(trackType != MEDIA_TRACK_TYPE_VIDEO,
+                "Video track selection is not supported");
+
+        if (trackType == MEDIA_TRACK_TYPE_AUDIO) {
+            mSelectedAudioTrack = track;
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo =
                     Preconditions.checkNotNull(mDefaultTrackSelector.getCurrentMappedTrackInfo());
             TrackGroupArray audioTrackGroups = mappedTrackInfo.getTrackGroups(AUDIO_RENDERER_INDEX);
-            TrackGroup selectedTrackGroup = audioTrackGroups.get(index);
+            TrackGroup selectedTrackGroup = audioTrackGroups.get(track.mPlayerTrackIndex);
             // Selected all adaptive tracks.
             int[] trackIndices = new int[selectedTrackGroup.length];
             for (int i = 0; i < trackIndices.length; i++) {
                 trackIndices[i] = i;
             }
             DefaultTrackSelector.SelectionOverride selectionOverride =
-                    new DefaultTrackSelector.SelectionOverride(index, trackIndices);
+                    new DefaultTrackSelector.SelectionOverride(track.mPlayerTrackIndex,
+                            trackIndices);
             mDefaultTrackSelector.setParameters(mDefaultTrackSelector.buildUponParameters()
                     .setSelectionOverride(AUDIO_RENDERER_INDEX, audioTrackGroups, selectionOverride)
                     .build());
             return;
         }
-        index -= mAudioTrackInfos.size();
-        if (index < mMetadataTrackInfos.size()) {
-            mSelectedMetadataTrackIndex = index;
+
+        if (trackType == MEDIA_TRACK_TYPE_METADATA) {
+            mSelectedMetadataTrack = track;
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo =
                     Preconditions.checkNotNull(mDefaultTrackSelector.getCurrentMappedTrackInfo());
             TrackGroupArray metadataTrackGroups =
                     mappedTrackInfo.getTrackGroups(METADATA_RENDERER_INDEX);
             DefaultTrackSelector.SelectionOverride selectionOverride =
-                    new DefaultTrackSelector.SelectionOverride(index, /* tracks= */ 0);
+                    new DefaultTrackSelector.SelectionOverride(track.mPlayerTrackIndex,
+                            /* tracks= */ 0);
             mDefaultTrackSelector.setParameters(mDefaultTrackSelector.buildUponParameters()
                     .setRendererDisabled(METADATA_RENDERER_INDEX, /* disabled= */ false)
                     .setSelectionOverride(
@@ -291,13 +305,13 @@ import java.util.List;
                     .build());
             return;
         }
-        index -= mMetadataTrackInfos.size();
-        Preconditions.checkArgument(index < mInternalTextTrackInfos.size());
-        InternalTextTrackInfo internalTextTrackInfo = mInternalTextTrackInfos.get(index);
-        if (mPlayerTextTrackIndex != internalTextTrackInfo.mPlayerTrackIndex) {
+
+        Preconditions.checkArgument(track instanceof InternalTextTrackInfo);
+        InternalTextTrackInfo textTrack = (InternalTextTrackInfo) track;
+        if (mPlayerTextTrackIndex != textTrack.mPlayerTrackIndex) {
             // We need to do a player-level track selection.
             mTextRenderer.clearSelection();
-            mPlayerTextTrackIndex = internalTextTrackInfo.mPlayerTrackIndex;
+            mPlayerTextTrackIndex = textTrack.mPlayerTrackIndex;
             MappingTrackSelector.MappedTrackInfo mappedTrackInfo =
                     Preconditions.checkNotNull(mDefaultTrackSelector.getCurrentMappedTrackInfo());
             TrackGroupArray textTrackGroups = mappedTrackInfo.getTrackGroups(TEXT_RENDERER_INDEX);
@@ -307,29 +321,33 @@ import java.util.List;
                     .setSelectionOverride(TEXT_RENDERER_INDEX, textTrackGroups, selectionOverride)
                     .build());
         }
-        if (internalTextTrackInfo.mChannel != UNSET) {
-            mTextRenderer.select(internalTextTrackInfo.mType, internalTextTrackInfo.mChannel);
+        if (textTrack.mChannel != UNSET) {
+            mTextRenderer.select(textTrack.mType, textTrack.mChannel);
         }
-        mSelectedTextTrackIndex = index;
+        mSelectedTextTrack = textTrack;
     }
 
-    public void deselectTrack(int index) {
-        Preconditions.checkArgument(
-                index >= mVideoTrackInfos.size(), "Video track deselection is not supported");
-        index -= mVideoTrackInfos.size();
-        Preconditions.checkArgument(
-                index >= mAudioTrackInfos.size(), "Audio track deselection is not supported");
-        index -= mAudioTrackInfos.size();
-        if (index < mMetadataTrackInfos.size()) {
-            mSelectedMetadataTrackIndex = TRACK_INDEX_UNSET;
+    public void deselectTrack(int trackId) {
+        InternalTrackInfo track = mTracks.get(trackId);
+        Preconditions.checkArgument(track != null, "unknown track id");
+
+        int trackType = track.mExternalTrackInfo.getTrackType();
+        Preconditions.checkArgument(trackType != MEDIA_TRACK_TYPE_VIDEO,
+                "Video track deselection is not supported");
+        Preconditions.checkArgument(trackType != MEDIA_TRACK_TYPE_AUDIO,
+                "Audio track deselection is not supported");
+
+        if (trackType == MEDIA_TRACK_TYPE_METADATA) {
+            mSelectedMetadataTrack = null;
             mDefaultTrackSelector.setParameters(mDefaultTrackSelector.buildUponParameters()
                     .setRendererDisabled(METADATA_RENDERER_INDEX, /* disabled= */ true));
             return;
         }
-        index -= mMetadataTrackInfos.size();
-        Preconditions.checkArgument(index == mSelectedTextTrackIndex);
+
+        Preconditions.checkArgument(mSelectedTextTrack != null
+                && mSelectedTextTrack.mExternalTrackInfo.getId() == trackId);
         mTextRenderer.clearSelection();
-        mSelectedTextTrackIndex = TRACK_INDEX_UNSET;
+        mSelectedTextTrack = null;
     }
 
     private static int getTextTrackType(String sampleMimeType) {
@@ -345,22 +363,47 @@ import java.util.List;
         }
     }
 
-    public static final class InternalTextTrackInfo {
+    static class InternalTrackInfo {
+        final int mPlayerTrackIndex;
+        final TrackInfoImpl mExternalTrackInfo;
 
-        public static final String MIMETYPE_TEXT_CEA_608 = "text/cea-608";
-        public static final String MIMETYPE_TEXT_CEA_708 = "text/cea-708";
-
-        public static final int UNSET = -1;
-
-        public final int mPlayerTrackIndex;
-        public final TrackInfoImpl mTrackInfo;
-        public final int mType;
-        public final int mChannel;
-        @Nullable public final Format mFormat;
-
-        InternalTextTrackInfo(
-                int playerTrackIndex, int type, @Nullable Format format, int channel) {
+        InternalTrackInfo(int playerTrackIndex, int trackInfoType, @Nullable MediaFormat format,
+                int trackId) {
             mPlayerTrackIndex = playerTrackIndex;
+            mExternalTrackInfo = new TrackInfoImpl(trackId, trackInfoType, format);
+        }
+    }
+
+    static final class InternalTextTrackInfo extends InternalTrackInfo {
+
+        static final String MIMETYPE_TEXT_CEA_608 = "text/cea-608";
+        static final String MIMETYPE_TEXT_CEA_708 = "text/cea-708";
+
+        static final int UNSET = -1;
+
+        final int mType;
+        final int mChannel;
+        @Nullable final Format mFormat;
+
+        InternalTextTrackInfo(int playerTrackIndex, @TextRenderer.TextTrackType int type,
+                @Nullable Format format, int channel, int trackId) {
+            super(playerTrackIndex, getTrackInfoType(type), getMediaFormat(type, format, channel),
+                    trackId);
+
+            mType = type;
+            mChannel = channel;
+            mFormat = format;
+        }
+
+        private static int getTrackInfoType(@TextRenderer.TextTrackType int type) {
+            // Hide WebVTT tracks, like the NuPlayer-based implementation
+            // (see [internal: b/120081663]).
+            return type == TRACK_TYPE_WEBVTT ? MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN
+                    : MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE;
+        }
+
+        private static MediaFormat getMediaFormat(@TextRenderer.TextTrackType int type,
+                @Nullable Format format, int channel) {
             @C.SelectionFlags int selectionFlags;
             if (type == TRACK_TYPE_CEA608 && channel == 0) {
                 selectionFlags = C.SELECTION_FLAG_AUTOSELECT | C.SELECTION_FLAG_DEFAULT;
@@ -370,14 +413,6 @@ import java.util.List;
                 selectionFlags = format == null ? 0 : format.selectionFlags;
             }
             String language = format == null ? C.LANGUAGE_UNDETERMINED : format.language;
-            mTrackInfo = getTrackInfo(type, language, selectionFlags);
-            mType = type;
-            mChannel = channel;
-            mFormat = format;
-        }
-
-        static TrackInfoImpl getTrackInfo(
-                int type, String language, @C.SelectionFlags int selectionFlags) {
             MediaFormat mediaFormat = new MediaFormat();
             if (type == TRACK_TYPE_CEA608) {
                 mediaFormat.setString(MediaFormat.KEY_MIME, MIMETYPE_TEXT_CEA_608);
@@ -396,12 +431,7 @@ import java.util.List;
                     (selectionFlags & C.SELECTION_FLAG_AUTOSELECT) != 0 ? 1 : 0);
             mediaFormat.setInteger(MediaFormat.KEY_IS_DEFAULT,
                     (selectionFlags & C.SELECTION_FLAG_DEFAULT) != 0 ? 1 : 0);
-            // Hide WebVTT tracks, like the NuPlayer-based implementation
-            // (see [internal: b/120081663]).
-            int trackInfoType =
-                    type == TRACK_TYPE_WEBVTT ? MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_UNKNOWN
-                            : MediaPlayer2.TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE;
-            return new TrackInfoImpl(trackInfoType, mediaFormat);
+            return mediaFormat;
         }
 
     }
