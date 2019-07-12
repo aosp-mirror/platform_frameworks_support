@@ -22,6 +22,30 @@
       "revId": "ab1e5539cb8f2149dcff7b9c9f87a524881d1b42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67f87c4d_13615bcf",
+        "filename": "media2/widget/src/main/java/androidx/media2/widget/MediaControlView.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1548,
+      "author": {
+        "id": 1380121
+      },
+      "writtenOn": "2019-07-12T02:26:30Z",
+      "side": 1,
+      "message": "To make the latter NonNull. I didn\u0027t want to add nullness checks to all of the \"findControlButton(SIZE_TYPE_FULL,...\". Does it make sense?",
+      "parentUuid": "07c9d95f_47d2346e",
+      "range": {
+        "startLine": 1532,
+        "startChar": 0,
+        "endLine": 1548,
+        "endChar": 22
+      },
+      "revId": "ab1e5539cb8f2149dcff7b9c9f87a524881d1b42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
