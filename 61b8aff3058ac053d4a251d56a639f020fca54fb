@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8e68a72_f798e2a3",
+        "filename": "ui/ui-material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-12T14:34:49Z",
+      "side": 1,
+      "message": "Why here we use default empty lambdas and below we use nulls?",
+      "range": {
+        "startLine": 73,
+        "startChar": 39,
+        "endLine": 73,
+        "endChar": 42
+      },
+      "revId": "61b8aff3058ac053d4a251d56a639f020fca54fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
