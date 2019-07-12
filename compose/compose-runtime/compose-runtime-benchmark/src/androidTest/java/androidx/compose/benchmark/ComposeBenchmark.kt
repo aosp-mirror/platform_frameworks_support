@@ -25,6 +25,7 @@ import androidx.compose.Composer
 import androidx.compose.FrameManager
 import androidx.compose.Model
 import androidx.compose.Observe
+import androidx.compose.benchmark.realworld4.RealWorld4_FancyWidget_000
 import androidx.compose.compose
 import androidx.compose.composer
 import androidx.compose.runWithCurrent
@@ -146,6 +147,20 @@ class ComposeBenchmark {
             }
             update {
                 model.toggle()
+            }
+        }
+    }
+
+    @UiThreadTest
+    @Test
+    fun benchmark_realworld4_mid() {
+        val model = androidx.compose.benchmark.realworld4.createSampleData()
+        measureRecompose {
+            compose {
+                RealWorld4_FancyWidget_000(model)
+            }
+            update {
+                model.f12.f3.f11.f2 = !model.f12.f3.f11.f2
             }
         }
     }
