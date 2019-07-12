@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7ec7276_5ff4df94",
+        "filename": "compose/compose-runtime/compose-runtime-benchmark/src/androidTest/java/androidx/compose/benchmark/ComposeBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-12T17:52:36Z",
+      "side": 1,
+      "message": "Can you move this above the helpers.",
+      "revId": "d7b64d54a9c17200c16a38a42535a3275b225352",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8b1b6e_c927bf25",
+        "filename": "compose/compose-runtime/compose-runtime-benchmark/src/androidTest/java/androidx/compose/benchmark/ComposeBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-12T17:52:36Z",
+      "side": 1,
+      "message": "Consider adding a composition test as well as a recompose test.",
+      "revId": "d7b64d54a9c17200c16a38a42535a3275b225352",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a29be517_e7665c7d",
+        "filename": "compose/compose-runtime/compose-runtime-benchmark/src/androidTest/java/androidx/compose/benchmark/ComposeBenchmark.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-12T17:52:36Z",
+      "side": 1,
+      "message": "Consider renaming f2 to something unique, preferably with a name that indicates that it is the field that is modified.",
+      "revId": "d7b64d54a9c17200c16a38a42535a3275b225352",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb71ad2_d9ef443a",
+        "filename": "compose/compose-runtime/compose-runtime-benchmark/src/androidTest/java/androidx/compose/benchmark/realworld4/RealWorld4_DataModels.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1048725
+      },
+      "writtenOn": "2019-07-12T17:52:36Z",
+      "side": 1,
+      "message": "Consider creating a fixed seeded random number.\n\nRandom numbers in a benchmark lead to unstable benchmarks.",
+      "revId": "d7b64d54a9c17200c16a38a42535a3275b225352",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
