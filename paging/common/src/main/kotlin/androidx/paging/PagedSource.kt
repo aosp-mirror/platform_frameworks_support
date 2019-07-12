@@ -154,7 +154,12 @@ abstract class PagedSource<Key : Any, Value : Any> {
          * implementations of [PagedSource].
          */
         val counted: Boolean
-    )
+    ) {
+        internal companion object {
+            internal fun <Key : Any, Value : Any> empty() =
+                LoadResult<Key, Value>(0, 0, null, null, emptyList(), 0, true)
+        }
+    }
 
     /**
      * Used to define how pages are indexed, one of:

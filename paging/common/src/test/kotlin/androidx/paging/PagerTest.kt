@@ -65,11 +65,11 @@ class PagerTest {
     val data = List(9) { "$it" }
 
     private fun rangeResult(start: Int, end: Int) =
-        PositionalDataSource.RangeResult(data.subList(start, end))
+        PositionalDataSource.RangeResult(data.subList(start, end)).toLoadResult<Int>()
 
     private data class Result(
         val type: PagedList.LoadType,
-        val pageResult: DataSource.BaseResult<String>
+        val pageResult: PagedSource.LoadResult<Int, String>
     )
 
     private data class StateChange(
@@ -78,7 +78,7 @@ class PagerTest {
         val error: Throwable? = null
     )
 
-    private class MockConsumer : Pager.PageConsumer<String> {
+    private class MockConsumer : Pager.PageConsumer<Int, String> {
 
         private val results: MutableList<Result> = arrayListOf()
         private val stateChanges: MutableList<StateChange> = arrayListOf()
@@ -97,7 +97,7 @@ class PagerTest {
 
         override fun onPageResult(
             type: PagedList.LoadType,
-            pageResult: DataSource.BaseResult<String>
+            pageResult: PagedSource.LoadResult<Int, String>
         ): Boolean {
             results.add(Result(type, pageResult))
             return false
@@ -119,8 +119,11 @@ class PagerTest {
         DirectExecutor,
         DirectExecutor,
         consumer,
-        null,
-        PositionalDataSource.InitialResult(data.subList(start, end), start, data.size)
+        result = PositionalDataSource.InitialResult(
+            data.subList(start, end),
+            start,
+            data.size
+        ).toLoadResult()
     )
 
     @Test
@@ -240,7 +243,7 @@ class PagerTest {
         // Pager triggers an immediate empty response here, so we don't need to flush the executor
         assertEquals(
             listOf(
-                Result(END, DataSource.BaseResult.empty())
+                Result(END, PagedSource.LoadResult.empty())
             ), consumer.takeResults()
         )
         assertEquals(
@@ -260,7 +263,7 @@ class PagerTest {
         // Pager triggers an immediate empty response here, so we don't need to flush the executor
         assertEquals(
             listOf(
-                Result(START, DataSource.BaseResult.empty())
+                Result(START, PagedSource.LoadResult.empty())
             ), consumer.takeResults()
         )
         assertEquals(
