@@ -87,6 +87,24 @@
       "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f02242a1_e3d90fa1",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1458882
+      },
+      "writtenOn": "2019-07-12T22:36:41Z",
+      "side": 1,
+      "message": "You need a MutableList in that case. The point is that we don\u0027t care how the list is implemented, just that it is a list of some sort.\n\nYou should also be using the kotlin version from kotlin.collections / stdlib.",
+      "parentUuid": "29044840_7b8d165a",
+      "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
