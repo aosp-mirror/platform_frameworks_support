@@ -46,6 +46,30 @@
       "revId": "61b8aff3058ac053d4a251d56a639f020fca54fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "032f6d9e_cfef6ec1",
+        "filename": "ui/ui-material/src/main/java/androidx/ui/material/AppBar.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1416041
+      },
+      "writtenOn": "2019-07-12T15:00:57Z",
+      "side": 1,
+      "message": "Ok, I see. I think we should use one approach instead of two here and we can try default, yeah. Let\u0027s do it later then",
+      "parentUuid": "20ec2447_1c747ed9",
+      "range": {
+        "startLine": 73,
+        "startChar": 39,
+        "endLine": 73,
+        "endChar": 42
+      },
+      "revId": "61b8aff3058ac053d4a251d56a639f020fca54fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
