@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c67113a_36a64479",
+        "filename": "buildSrc/src/main/kotlin/androidx/build/metalava/MetalavaRunner.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1086749
+      },
+      "writtenOn": "2019-07-12T22:05:00Z",
+      "side": 1,
+      "message": "Do we need these in other invocations for metalava?",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 5
+      },
+      "revId": "62baf414f936c23e76c0a9b57b527c54eb844639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
