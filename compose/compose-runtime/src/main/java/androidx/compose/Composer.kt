@@ -321,10 +321,10 @@ open class Composer<N>(
     // Deprecated
     override fun <T : N> emitNode(factory: () -> T) {
         if (inserting) {
-            // The previous pending is the pending information for where the node is being inserted.
-            // They must exist as we are in insert mode and entering inserting mode created them.
             val insertIndex = nodeIndexStack.peek()
-            pending!!.nodeCount++
+            // The pending is the pending information for where the node is being inserted.
+            // pending will be null here when the parent was inserted too.
+            pending?.let { it.nodeCount++ }
             groupNodeCount++
             recordOperation { applier, slots, _ ->
                 val node = factory()
@@ -340,10 +340,9 @@ open class Composer<N>(
     }
 
     override fun <T : N> createNode(factory: () -> T) {
-        // The previous pending is the pending information for where the node is being inserted.
-        // They must exist as we are in insert mode and entering inserting mode created them.
         val insertIndex = nodeIndexStack.peek()
-        pending!!.nodeCount++
+        // see emitNode
+        pending?.let { it.nodeCount++ }
         groupNodeCount++
         recordOperation { applier, slots, _ ->
             val node = factory()
@@ -357,7 +356,8 @@ open class Composer<N>(
     override fun emitNode(node: N) {
         assert(inserting) { "emitNode() called when not inserting" }
         val insertIndex = nodeIndexStack.peek()
-        pending!!.nodeCount++
+        // see emitNode
+        pending?.let { it.nodeCount++ }
         groupNodeCount++
         recordOperation { applier, slots, _ ->
             slots.update(node)
@@ -598,6 +598,24 @@ open class Composer<N>(
 
     private fun start(key: Any, action: SlotAction) {
         assert(childrenAllowed) { "A call to createNode(), emitNode() or useNode() expected" }
+
+        // Check for the insert fast path. If we are already inserting (creating nodes) then
+        // there is no need to track insert, deletes and moves with a pending changes object.
+        if (inserting) {
+            slots.beginEmpty()
+            recordOperation { _, slots, _ ->
+                slots.update(key)
+                slots.start(action)
+            }
+            pending?.let { pending ->
+                val insertKeyInfo = KeyInfo(key, -1, 0, -1)
+                pending.registerInsert(insertKeyInfo, nodeIndex - pending.startIndex)
+                pending.recordUsed(insertKeyInfo)
+            }
+            enterGroup(action, null, null)
+            return
+        }
+
         if (pending == null) {
             val slotKey = slots.next()
             if (slotKey == key) {
@@ -862,32 +880,34 @@ open class Composer<N>(
      * generated with no changes.
      */
     private fun recordEnters(location: Int) {
-        while (true) {
-            skipToGroupContaining(location)
-            assert(
-                slots.isGroup && location >= slots.current &&
-                        location < slots.current + slots.groupSize
-            ) {
-                "Could not find group at $location"
-            }
-            if (slots.current == location) {
-                return
-            } else {
-                enterGroup(
-                    if (slots.isNode) START_NODE
-                    else START_GROUP, null, null
-                )
-                if (slots.isNode) {
-                    recordStart(START_NODE)
-                    recordDown()
-                    entersStack.push(END_NODE)
-                    slots.startNode()
-                    slots.next() // skip navigation slot
-                    nodeIndex = 0
+        trace("Compose:recordEnters") {
+            while (true) {
+                skipToGroupContaining(location)
+                assert(
+                    slots.isGroup && location >= slots.current &&
+                            location < slots.current + slots.groupSize
+                ) {
+                    "Could not find group at $location"
+                }
+                if (slots.current == location) {
+                    return
                 } else {
-                    recordStart(START_GROUP)
-                    entersStack.push(END_GROUP)
-                    slots.startGroup()
+                    enterGroup(
+                        if (slots.isNode) START_NODE
+                        else START_GROUP, null, null
+                    )
+                    if (slots.isNode) {
+                        recordStart(START_NODE)
+                        recordDown()
+                        entersStack.push(END_NODE)
+                        slots.startNode()
+                        slots.next() // skip navigation slot
+                        nodeIndex = 0
+                    } else {
+                        recordStart(START_GROUP)
+                        entersStack.push(END_GROUP)
+                        slots.startGroup()
+                    }
                 }
             }
         }
@@ -897,11 +917,13 @@ open class Composer<N>(
      * Exit any groups that were entered until a sibling of maxLocation is reached.
      */
     private fun recordExits(maxLocation: Int, minStack: Int) {
-        while (entersStack.size > minStack) {
-            skipToGroupContaining(maxLocation)
-            if (slots.isGroupEnd)
-                end(entersStack.pop())
-            else return
+        trace("Compose:recordExits") {
+            while (entersStack.size > minStack) {
+                skipToGroupContaining(maxLocation)
+                if (slots.isGroupEnd)
+                    end(entersStack.pop())
+                else return
+            }
         }
     }
 
@@ -944,8 +966,11 @@ open class Composer<N>(
     }
 
     private fun invalidate(scope: RecomposeScope, sync: Boolean) {
-        val location = scope.anchor?.location(slotTable) ?: return
-        assert(location >= 0) { "Invalid anchor" }
+        val location = scope.anchor?.location(slotTable)
+            ?: return // The scope never entered the composition
+        if (location < 0)
+            return // The scope was removed from the composition
+
         invalidations.insertIfMissing(location, scope)
         if (isComposing && location > slots.current) {
             // if we are invalidating a scope that is going to be traversed during this
@@ -1018,7 +1043,7 @@ open class Composer<N>(
         }
     }
 
-    fun recompose() {
+    fun recompose(): Boolean {
         if (invalidations.isNotEmpty()) {
             trace("Compose:recompose") {
                 slotTable.read {
@@ -1030,7 +1055,9 @@ open class Composer<N>(
                     finalizeCompose()
                 }
             }
+            return true
         }
+        return false
     }
 
     private fun record(change: Change<N>) {

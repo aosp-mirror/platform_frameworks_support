@@ -16,6 +16,8 @@
 package androidx.build
 
 import androidx.build.gmaven.GMavenVersionChecker
+import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.api.LibraryVariant
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskProvider
@@ -175,7 +177,7 @@ object Release {
     @Suppress("MemberVisibilityCanBePrivate")
     const val DIFF_TASK_PREFIX = "createDiffArchive"
     const val FULL_ARCHIVE_TASK_NAME = "createArchive"
-    const val DEFAULT_PUBLISH_CONFIG = "release"
+    const val DEFAULT_PUBLISH_CONFIG = "debug"
     // lazily created config action params so that we don't keep re-creating them
     private var configActionParams: GMavenZipTask.ConfigAction.Params? = null
 
@@ -297,6 +299,17 @@ object Release {
             onRegister = {
             }
         )
+    }
+}
+
+/**
+ * Let you configure a library variant associated with [Release.DEFAULT_PUBLISH_CONFIG]
+ */
+fun LibraryExtension.defaultPublishVariant(config: (LibraryVariant) -> Unit) {
+    libraryVariants.all { variant ->
+        if (variant.name == Release.DEFAULT_PUBLISH_CONFIG) {
+            config(variant)
+        }
     }
 }
 

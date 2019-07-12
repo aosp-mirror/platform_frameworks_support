@@ -170,7 +170,7 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         if (mDispatchSelected) {
             // Drag started settling, need to calculate target page and dispatch onPageSelected now
             mDispatchSelected = false;
-            boolean scrollingForward = dy > 0 || (dy == 0 && dx < 0 == mViewPager.isLayoutRtl());
+            boolean scrollingForward = dy > 0 || (dy == 0 && dx < 0 == mViewPager.isRtl());
 
             // "&& values.mOffsetPx != 0": filters special case where we're scrolling forward and
             // the first scroll event after settling already got us at the target
@@ -182,10 +182,14 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         } else if (mAdapterState == STATE_IDLE) {
             // onScrolled while IDLE means RV has just been populated after an adapter has been set.
             // Contract requires us to fire onPageSelected as well.
-            dispatchSelected(mScrollValues.mPosition);
+            int position = mScrollValues.mPosition;
+            // Contract forbids us to send position = -1 though
+            dispatchSelected(position == NO_POSITION ? 0 : position);
         }
 
-        dispatchScrolled(mScrollValues.mPosition, mScrollValues.mOffset, mScrollValues.mOffsetPx);
+        // If position = -1, there are no items. Contract says to send position = 0 instead.
+        dispatchScrolled(mScrollValues.mPosition == NO_POSITION ? 0 : mScrollValues.mPosition,
+                mScrollValues.mOffset, mScrollValues.mOffsetPx);
 
         // Dispatch idle in onScrolled instead of in onScrollStateChanged because RecyclerView
         // doesn't send IDLE event when using setCurrentItem(x, false)
@@ -230,7 +234,7 @@ final class ScrollEventAdapter extends RecyclerView.OnScrollListener {
         int start, sizePx;
         if (isHorizontal) {
             sizePx = firstVisibleView.getWidth() + margin.leftMargin + margin.rightMargin;
-            if (!mViewPager.isLayoutRtl()) {
+            if (!mViewPager.isRtl()) {
                 start = firstVisibleView.getLeft() - margin.leftMargin;
             } else {
                 start = sizePx - firstVisibleView.getRight() - margin.rightMargin;
