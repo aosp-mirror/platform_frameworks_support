@@ -105,6 +105,24 @@
       "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a02991e_91d03783",
+        "filename": "benchmark/src/main/java/androidx/benchmark/ResultWriter.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1497627
+      },
+      "writtenOn": "2019-07-13T14:47:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f02242a1_e3d90fa1",
+      "revId": "c77a4a11e9a95d713819d93e8c1b7072876f84e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
