@@ -63,9 +63,22 @@ open class ContiguousPagedList<K : Any, V : Any>(
 
     private var replacePagesWithNulls = false
 
-    private val shouldTrim: Boolean
+    private val shouldTrim: Boolean by lazy {
+        dataSource.supportsPageDropping && config.maxSize != Config.MAX_SIZE_UNBOUNDED
+    }
 
-    private val pager: Pager<K, V>
+    private val pager: Pager<K, V> by lazy {
+        Pager(
+            coroutineScope,
+            config,
+            PagedSourceWrapper(dataSource),
+            mainThreadExecutor,
+            backgroundThreadExecutor,
+            this,
+            storage,
+            initialResult.toLoadResult()
+        )
+    }
 
     override val isDetached
         get() = pager.isDetached
@@ -188,17 +201,6 @@ open class ContiguousPagedList<K : Any, V : Any>(
 
     init {
         this.lastLoad = lastLoad
-        pager = Pager(
-            coroutineScope,
-            config,
-            PagedSourceWrapper(dataSource), // TODO: Fix non-final in constructor.
-            mainThreadExecutor,
-            backgroundThreadExecutor,
-            this,
-            storage,
-            initialResult.toLoadResult()
-        )
-
         if (config.enablePlaceholders) {
             // Placeholders enabled, pass raw data to storage init
             storage.init(
@@ -219,9 +221,6 @@ open class ContiguousPagedList<K : Any, V : Any>(
                 this
             )
         }
-
-        shouldTrim =
-            dataSource.supportsPageDropping && config.maxSize != Config.MAX_SIZE_UNBOUNDED
 
         if (this.lastLoad == LAST_LOAD_UNSPECIFIED) {
             // Because the ContiguousPagedList wasn't initialized with a last load position,
