@@ -327,8 +327,6 @@ public class ItemTouchHelper extends RecyclerView.ItemDecoration
                 if (mSelected == null) {
                     final RecoverAnimation animation = findAnimation(event);
                     if (animation != null) {
-                        mInitialTouchX -= animation.mX;
-                        mInitialTouchY -= animation.mY;
                         endRecoverAnimation(animation.mViewHolder, true);
                         if (mPendingCleanup.remove(animation.mViewHolder.itemView)) {
                             mCallback.clearView(mRecyclerView, animation.mViewHolder);
